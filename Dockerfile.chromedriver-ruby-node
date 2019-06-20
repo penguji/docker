@@ -1,0 +1,19 @@
+FROM ubuntu:16.04
+LABEL maintainer="fachrul@penguji.id"
+RUN apt-get update && apt-get install -y --fix-missing curl unzip libnss3 libx11-6 git
+
+# Install Chrome WebDriver
+
+ENV BROWSER=chrome
+ENV CI=true
+ENV TZ='Asia/Jakarta'
+
+RUN mkdir /app
+WORKDIR /app
+ADD automation-setup.sh .
+RUN chmod +x automation-setup.sh
+RUN ./automation-setup.sh
+
+# ENTRYPOINT ["bundle"]
+# CMD ["install"]
+# CMD ["sh", "/app/test-runner.sh", "run"]
